@@ -85,6 +85,8 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       updated_cart.splice(index, 1);
 
       setCart([...updated_cart]);
+  
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(cart));
     } catch {
       toast.error('Erro na remoção do produto');
     }
