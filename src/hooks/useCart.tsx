@@ -17,8 +17,6 @@ interface CartContextData {
   addProduct: (productId: number) => Promise<void>;
   removeProduct: (productId: number) => void;
   updateProductAmount: ({ productId, amount }: UpdateProductAmount) => void;
-  increaseProductAmount: (productId: number) => void;
-  decreaseProductAmount: (productId: number) => void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
@@ -115,7 +113,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   return (
     <CartContext.Provider
-      value={{ cart, addProduct, removeProduct, updateProductAmount, increaseProductAmount, decreaseProductAmount }}
+      value={{ cart, addProduct, removeProduct, updateProductAmount }}
     >
       {children}
     </CartContext.Provider>
