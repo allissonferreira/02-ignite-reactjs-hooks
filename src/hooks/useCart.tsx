@@ -41,7 +41,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   const addProduct = async (productId: number) => {
     try {
       const index = getCartProductIndexById(productId);
-      const response = await api.get('/products/' + productId);
 
       if (index >= 0) {
         const product = cart[index];
@@ -55,6 +54,8 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
         return;
       }
+
+      const response = await api.get('/products/' + productId);
 
       const product = response.data;
       product.amount = 1;
