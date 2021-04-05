@@ -5,17 +5,7 @@ import { ProductList } from './styles';
 import { api } from '../../services/api';
 import { formatPrice } from '../../util/format';
 import { useCart } from '../../hooks/useCart';
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-}
-
-interface ProductFormatted extends Product {
-  priceFormatted: string;
-}
+import { ProductFormatted } from '../../types';
 
 interface CartItemsAmount {
   [key: number]: number;
