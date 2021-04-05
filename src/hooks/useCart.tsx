@@ -46,7 +46,15 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const response = await api.get('/products/' + productId);
 
       if (index >= 0) {
-        increaseProductAmount(index);
+        const product = cart[index];
+
+        const updated_product = {
+          productId: product.id,
+          amount: product.amount + 1,
+        };
+
+        updateProductAmount(updated_product);
+
         return;
       }
 
@@ -88,41 +96,22 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     amount,
   }: UpdateProductAmount) => {
     try {
-      // TODO
+      const index = getCartProductIndexById(productId);
+  
+      if (index === -1) {
+        return;
+      }
+  
+      const updated_cart = cart;
+      updated_cart[index].amount = amount;
+  
+      setCart([...updated_cart]);
+  
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(cart));
     } catch {
       // TODO
     }
   };
-
-  const increaseProductAmount = function(id: number) {
-    const index = getCartProductIndexById(id);
-
-    if (index === -1) {
-      return;
-    }
-
-    const updated_cart = cart;
-    updated_cart[index].amount = updated_cart[index].amount + 1;
-
-    setCart([...updated_cart]);
-
-    localStorage.setItem('@RocketShoes:cart', JSON.stringify(cart));
-  }
-
-  const decreaseProductAmount = function(id: number) {
-    const index = getCartProductIndexById(id);
-
-    if (index === -1) {
-      return;
-    }
-
-    const updated_cart = cart;
-    updated_cart[index].amount = updated_cart[index].amount - 1;
-
-    setCart([...updated_cart]);
-
-    localStorage.setItem('@RocketShoes:cart', JSON.stringify(cart));
-  }
 
   return (
     <CartContext.Provider
