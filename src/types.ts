@@ -3,7 +3,10 @@ export interface Product {
   title: string;
   price: number;
   image: string;
-  amount?: number;
+}
+
+export interface CartProduct extends Product {
+  amount: number;
 }
 
 export interface ProductFormatted extends Product {
