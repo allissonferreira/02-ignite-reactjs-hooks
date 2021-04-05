@@ -1,8 +1,9 @@
+import { getCartProductIndexById } from '../util/format';
+
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { api } from '../services/api';
 import { CartProduct, Stock } from '../types';
-import { getCartProductIndexById } from '../util/format';
 
 interface CartProviderProps {
   children: ReactNode;
