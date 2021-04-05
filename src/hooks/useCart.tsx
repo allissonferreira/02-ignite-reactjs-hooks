@@ -19,6 +19,7 @@ interface CartContextData {
   updateProductAmount: ({ productId, amount }: UpdateProductAmount) => void;
   getCartProductIndexById: (productId: number) => number;
   increaseProductAmount: (productId: number) => void;
+  decreaseProductAmount: (productId: number) => void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
@@ -100,9 +101,24 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     localStorage.setItem('@RocketShoes:cart', JSON.stringify(cart));
   }
 
+  const decreaseProductAmount = function(id: number) {
+    const index = getCartProductIndexById(id);
+
+    if (index === -1) {
+      return;
+    }
+
+    const updated_cart = cart;
+    updated_cart[index].amount = updated_cart[index].amount - 1;
+
+    setCart([...updated_cart]);
+
+    localStorage.setItem('@RocketShoes:cart', JSON.stringify(cart));
+  }
+
   return (
     <CartContext.Provider
-      value={{ cart, addProduct, removeProduct, updateProductAmount, getCartProductIndexById, increaseProductAmount }}
+      value={{ cart, addProduct, removeProduct, updateProductAmount, getCartProductIndexById, increaseProductAmount, decreaseProductAmount }}
     >
       {children}
     </CartContext.Provider>
