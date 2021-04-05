@@ -99,7 +99,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     try {
       const index = getCartProductIndexById(productId);
   
-      if (index === -1) {
+      if (index === -1 || amount < 1) {
         throw Error();
       }
 
