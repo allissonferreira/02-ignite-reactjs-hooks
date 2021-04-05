@@ -1,5 +1,3 @@
-import { getCartProductIndexById } from '../util/format';
-
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { api } from '../services/api';
@@ -35,6 +33,10 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
     return [];
   });
+
+  const getCartProductIndexById = function(id: number) {
+    return cart.findIndex((product, index) => product.id === id );
+  }
 
   const addProduct = async (productId: number) => {
     try {
