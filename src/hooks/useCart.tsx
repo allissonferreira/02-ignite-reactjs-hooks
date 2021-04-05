@@ -29,6 +29,8 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       return JSON.parse(storagedCart);
     }
 
+    localStorage.setItem('@RocketShoes:cart', JSON.stringify([]));
+
     return [];
   });
 
