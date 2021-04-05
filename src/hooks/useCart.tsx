@@ -68,7 +68,16 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      // TODO
+      const index = getCartProductIndexById(productId);
+
+      if (index === -1) {
+        return;
+      }
+
+      const updated_cart = cart;
+      updated_cart.splice(index, 1);
+
+      setCart([...updated_cart]);
     } catch {
       // TODO
     }
