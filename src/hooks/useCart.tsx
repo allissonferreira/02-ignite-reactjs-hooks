@@ -2,6 +2,7 @@ import { createContext, ReactNode, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { api } from '../services/api';
 import { CartProduct, Stock } from '../types';
+import { getCartProductIndexById } from '../util/format';
 
 interface CartProviderProps {
   children: ReactNode;
@@ -29,7 +30,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       return JSON.parse(storagedCart);
     }
 
-    localStorage.setItem('@RocketShoes:cart', JSON.stringify([]));
+    localStorage.setItem('@RocketShoes:cart', '[]');
 
     return [];
   });
