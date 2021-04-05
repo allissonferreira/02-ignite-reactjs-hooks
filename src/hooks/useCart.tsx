@@ -100,6 +100,14 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       if (index === -1) {
         return;
       }
+
+      const stock = await getProductStock(productId);
+      
+      if (amount > stock) {
+        toast.error('Quantidade solicitada fora de estoque');
+
+        return;
+      }
   
       const updated_cart = cart;
       updated_cart[index].amount = amount;
@@ -110,6 +118,12 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     } catch {
       // TODO
     }
+  };
+
+  const getProductStock = async (productId: number) => {
+    const response = await api.get('/stock/' + productId);
+
+    return response.data.amount;
   };
 
   return (
